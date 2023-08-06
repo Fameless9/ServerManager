@@ -1,0 +1,17 @@
+name: ServerManager
+version: '${project.version}'
+main: com.fameless.servermanager.ServerManager
+api-version: '1.20'
+
+commands:
+  rank:
+  mute:
+  unmute:
+  timeout:
+  hideab:
+  perm:
+  smhelp:
+    aliases: sminfo
+  vanish:
+    aliases: v
+  report:
