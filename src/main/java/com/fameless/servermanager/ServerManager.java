@@ -75,6 +75,8 @@ public final class ServerManager extends JavaPlugin implements Listener {
         getCommand("rename").setExecutor(new RenameCommand(this));
         getCommand("hologram").setExecutor(new ArmorStandCommand(this));
         getCommand("spawnpreset").setExecutor(new SpawnArmorStandPresetCommand(this));
+        getCommand("seeinv").setExecutor(new SeeInvCommand(this));
+        getCommand("seeenderchest").setExecutor(new SeeEnderchestCommand(this));
         getCommand("report").setExecutor(repotClass);
 
         if (!getDataFolder().exists()) {
