@@ -13,11 +13,13 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class ReportCommand implements CommandExecutor, Listener {
             return false;
         }
         if (serverManager.getJda() == null || serverManager.getConfig().getString("report-system.report-channel-id").equals("")) {
-            commandSender.sendMessage(serverManager.getConfig().getString("messages.reporting-not-configured-message"));
+            commandSender.sendMessage(Configuration.getReportingNotConfiguredMessage());
             return false;
         }
         Player player = (Player) commandSender;
@@ -59,29 +61,28 @@ public class ReportCommand implements CommandExecutor, Listener {
         }
         if (args.length == 1) {
             if (Bukkit.getPlayerExact(args[0]) == null) {
-                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "Player is not online or is not valid.");
+                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + Configuration.getPlayerNotFoundMessage());
                 return false;
             }
             openReportInv(player);
             target = Bukkit.getPlayer(args[0]);
             jda = serverManager.getJda();
-            reportChannel = jda.getTextChannelById(serverManager.getConfig().getString("report-system.report-channel-id"));
-            return false;
+            reportChannel = jda.getTextChannelById(Configuration.getReportChannelID());
         } else {
             commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "Usage: /report <player> <reason>");
-            return false;
         }
+        return false;
     }
     private void openReportInv(Player player) {
 
         Inventory inventory = Bukkit.createInventory(player, 9, "Report Menu");
-        inventory.setItem(0, getItem(new ItemStack(Material.TNT),ChatColor.RED + "Cheating/Hacking",
+        inventory.setItem(0, getItem(new ItemStack(Material.TNT),ChatColor.RED + "Cheating/Hacking",true,
                 ChatColor.DARK_AQUA + "Report the Player for cheating",
                 ChatColor.DARK_AQUA + "This can be using a hacked client or abusing bugs"));
-        inventory.setItem(1, getItem(new ItemStack(Material.BARRIER),ChatColor.RED + "Abusive chat behaviour",
+        inventory.setItem(1, getItem(new ItemStack(Material.BARRIER),ChatColor.RED + "Abusive chat behaviour",true,
                 ChatColor.DARK_AQUA + "Report a player for chatting in an abusive manner",
                 ChatColor.DARK_AQUA + "This can be swearing or trying to sell/scam in chat"));
-        inventory.setItem(2, getItem(new ItemStack(Material.BUCKET), ChatColor.RED + "Other",
+        inventory.setItem(2, getItem(new ItemStack(Material.BUCKET), ChatColor.RED + "Other",true,
                 ChatColor.DARK_AQUA + "Report a player for something not listed here.",
                 ChatColor.DARK_AQUA + "You can give more information after you clicked."));
         player.openInventory(inventory);
@@ -126,7 +127,7 @@ public class ReportCommand implements CommandExecutor, Listener {
                             player.closeInventory();
                             return Collections.emptyList();
                         })
-                        .itemOutput(getItem(new ItemStack(Material.GREEN_DYE),ChatColor.GREEN + "Send report", "",
+                        .itemOutput(getItem(new ItemStack(Material.GREEN_DYE),ChatColor.GREEN + "Send report",false, "",
                                 ChatColor.RED + "Please don't report unless you have a valid accusation!"))
                         .title("Report Menu | Other")
                         .text("Enter more information about the report")
@@ -136,9 +137,13 @@ public class ReportCommand implements CommandExecutor, Listener {
         }
     }
 
-    private ItemStack getItem(ItemStack item, String name, String ...lore) {
+    private ItemStack getItem(ItemStack item, String name, boolean enchanted, String ...lore) {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
+        if (enchanted) {
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            meta.addEnchant(Enchantment.CHANNELING, 1, true);
+        }
 
         List<String> lores = new ArrayList<>();
 

@@ -1,5 +1,7 @@
-package com.fameless.servermanager;
+package com.fameless.servermanager.listener;
 
+import com.fameless.servermanager.Configuration;
+import com.fameless.servermanager.ServerManager;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -20,11 +22,11 @@ public class CastMessages extends ListenerAdapter implements Listener {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (serverManager.getConfig().getBoolean("discord-messages.casttomc")) {
+        if (Configuration.castMessagesToMc()) {
             if (event.getAuthor().isBot()) return;
             if (event.getChannelType() == ChannelType.TEXT){
                 TextChannel channel = (TextChannel) event.getChannel();
-                if (channel.equals(serverManager.getJda().getTextChannelById(serverManager.getConfig().getString("discord-messages.casttomc-channel-id")))) {
+                if (channel.equals(serverManager.getJda().getTextChannelById(Configuration.castToMcChannelID()))) {
                     Bukkit.broadcastMessage("\uE009 " + event.getAuthor().getName() + ChatColor.GRAY + ": " + event.getMessage().getContentRaw());
                 }
             }
@@ -32,8 +34,8 @@ public class CastMessages extends ListenerAdapter implements Listener {
     }
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
-        if (serverManager.getConfig().getBoolean("minecraft-messages.casttodc")) {
-            TextChannel textChannel = serverManager.getJda().getTextChannelById(serverManager.getConfig().getString("minecraft-messages.casttodc-channel-id"));
+        if (Configuration.castMessagesToDc()) {
+            TextChannel textChannel = serverManager.getJda().getTextChannelById(Configuration.castToDcChannelID());
             textChannel.sendMessage("[Minecraft] " + event.getPlayer().getName() + ": " + event.getMessage()).queue();
         }
     }

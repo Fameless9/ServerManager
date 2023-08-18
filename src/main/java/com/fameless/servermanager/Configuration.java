@@ -5,61 +5,49 @@ public class Configuration {
     private static ServerManager serverManager;
 
     public Configuration(ServerManager serverManager) {
-        this.serverManager = serverManager;
-        initiateConfiguration();
+        Configuration.serverManager = serverManager;
     }
 
-    private void initiateConfiguration() {
-
-        // Messages
-        if (!serverManager.getConfig().contains("server.message-prefix")) {
-            serverManager.getConfig().set("server.message-prefix", "§8[§bServer§8]");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("messages.join-message")) {
-            serverManager.getConfig().set("messages.join-message", "§bPlayer {player} joined the game.");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("messages.quit-message")) {
-            serverManager.getConfig().set("messages.quit-message", "§cPlayer {player} left the game.");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("messages.permission-message")) {
-            serverManager.getConfig().set("messages.permission-message", "§cLacking permission: {permission}");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("messages.reporting-not-configured-message")) {
-            serverManager.getConfig().set("messages.reporting-not-configured-message", "§cReporting to Discord is not configured on this server.\n" +
-                    "If you are an admin, configure a discord bot and moderation channel in the config.yml, or replace this message in the config.yml.");
-        }
-
-        // Discord related
-        if (!serverManager.getConfig().contains("report-system.discord-token")) {
-            serverManager.getConfig().set("report-system.discord-token", "");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("report-system.report-channel-id")) {
-            serverManager.getConfig().set("report-system.report-channel-id", "");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("discord-messages.casttomc")) {
-            serverManager.getConfig().set("discord-messages.casttomc", false);
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("discord-messages.casttomc-channel-id")) {
-            serverManager.getConfig().set("discord-messages.casttomc-channel-id", "");
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("minecraft-messages.casttodc")) {
-            serverManager.getConfig().set("minecraft-messages.casttodc", false);
-            serverManager.saveConfig();
-        }
-        if (!serverManager.getConfig().contains("minecraft-messages.casttodc-channel-id")) {
-            serverManager.getConfig().set("minecraft-messages.casttodc-channel-id", "");
-            serverManager.saveConfig();
-        }
-    }
     public static String messagePrefix() {
         return serverManager.getConfig().getString("server.message-prefix") + " ";
+    }
+    public static  String joinMessage() {
+        return serverManager.getConfig().getString("messages.join-message");
+    }
+    public static String quitMessage() {
+        return serverManager.getConfig().getString("messages.quit-message");
+    }
+    public static String getPermissionMessage() {
+        return serverManager.getConfig().getString("messages.permission-message");
+    }
+    public static String getReportingNotConfiguredMessage() {
+        return serverManager.getConfig().getString("messages.reporting-not-configured-message");
+    }
+    public static String getDiscordToken() {
+        return serverManager.getConfig().getString("report-system.discord-token");
+    }
+    public static String getReportChannelID() {
+        return serverManager.getConfig().getString("report-system.report-channel-id");
+    }
+    public static boolean castMessagesToMc() {
+        return serverManager.getConfig().getBoolean("discord-messages.casttomc");
+    }
+    public static String castToMcChannelID() {
+        return serverManager.getConfig().getString("discord-messages.casttomc-channel-id");
+    }
+    public static boolean castMessagesToDc() {
+        return serverManager.getConfig().getBoolean("discord-messages.casttodc");
+    }
+    public static String castToDcChannelID() {
+        return serverManager.getConfig().getString("discord-messages.casttodc-channel-id");
+    }
+    public static String getPlayerNotFoundMessage() {
+        return serverManager.getConfig().getString("player-not-found-message");
+    }
+    public static String getFreezeMessage() {
+        return serverManager.getConfig().getString("player-freezed");
+    }
+    public static String getUnfreezeMessage() {
+        return serverManager.getConfig().getString("player-unfrozen");
     }
 }

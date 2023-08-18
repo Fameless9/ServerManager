@@ -32,7 +32,7 @@ public class UnmuteCommand implements CommandExecutor {
                 commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.GREEN + player.getName() + " is now unmuted.");
                 player.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.GREEN + "You are now unmuted.");
             } else {
-                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "Player couldn't be found!");
+                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + Configuration.getPlayerNotFoundMessage());
             }
         } else {
             commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "/unmute <player>");

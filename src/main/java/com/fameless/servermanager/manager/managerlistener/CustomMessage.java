@@ -27,6 +27,6 @@ public class CustomMessage implements Listener {
         }
 
         String prefix = serverManager.getRankManager().getRank(event.getPlayer()).getDisplay();
-        Bukkit.broadcastMessage(prefix + event.getPlayer().getName() + ChatColor.GRAY + ": " + event.getMessage());
+        Bukkit.broadcastMessage(prefix + event.getPlayer().getDisplayName() + ChatColor.GRAY + ": " + event.getMessage());
     }
 }

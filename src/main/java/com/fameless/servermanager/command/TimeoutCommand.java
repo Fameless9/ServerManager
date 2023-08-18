@@ -44,9 +44,9 @@ public class TimeoutCommand implements CommandExecutor, Listener {
                 serverManager.getHideActionbarMap().put(player.getUniqueId(), false);
                 commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.GREEN + "Player " + player.getName() + " is timeouted for " + time + " seconds. Use /unmute " + player.getName() + " to unmute them.");
                 player.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "You were timeouted by a moderator for " + time + " seconds.\n" +
-                        Configuration.messagePrefix() + ChatColor.RESET + ChatColor.GRAY + "To toggle the Actionbar on and off, do /hideab.");
+                        ChatColor.GRAY + "To toggle the Actionbar on and off, do /hideab.");
             } else {
-                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "Player couldn't be found!");
+                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + Configuration.getPlayerNotFoundMessage());
             }
         } else {
             commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED  + "Please use: /timeout <player> <seconds>");
@@ -91,6 +91,6 @@ public class TimeoutCommand implements CommandExecutor, Listener {
         }.runTaskTimer(serverManager, 0, 20);
     }
     private void sendActionbar(Player player, int time) {
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "You are muted for " + time + "s"));
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "You are muted for " + time + "s"));
     }
 }

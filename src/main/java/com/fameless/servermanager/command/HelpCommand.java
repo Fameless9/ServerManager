@@ -33,8 +33,6 @@ public class HelpCommand implements CommandExecutor {
                 ChatColor.GRAY + "-" + ChatColor.AQUA + " /unmute -> unmute a player\n" +
                 ChatColor.GRAY + "-" + ChatColor.AQUA + " /vanish -> hide from other players\n" +
                 ChatColor.GRAY + "-" + ChatColor.AQUA + " /report -> report a player");
-
-
         return false;
     }
 }

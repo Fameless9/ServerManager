@@ -39,7 +39,7 @@ public class VanishCommand implements CommandExecutor {
             } else {
                 vanishedPlayers.add(player.getUniqueId());
                 player.hidePlayer(serverManager, player);
-                player.sendMessage(ChatColor.GREEN + "You are now vanished.");
+                player.sendMessage(Configuration.messagePrefix() + ChatColor.GREEN + "You are now vanished.");
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "You are currently vanished."));
             }
         } else {
@@ -53,6 +53,7 @@ public class VanishCommand implements CommandExecutor {
             public void run() {
                 for (int i = 0; i < vanishedPlayers.size(); i++) {
                     Player player = Bukkit.getPlayer(vanishedPlayers.get(i));
+                    if (serverManager.getHideActionbarMap().containsKey(player.getUniqueId())) continue;
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "You are currently vanished."));
                 }
             }

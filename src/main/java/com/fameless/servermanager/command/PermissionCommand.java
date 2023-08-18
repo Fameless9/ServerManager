@@ -42,7 +42,7 @@ public class PermissionCommand implements CommandExecutor {
                         break;
                 }
             } else {
-                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "Player couldn't be found!");
+                commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + Configuration.getPlayerNotFoundMessage());
             }
         } else {
             commandSender.sendMessage(Configuration.messagePrefix() + ChatColor.RESET + ChatColor.RED + "Please use: /perm <add/remove> <player> <permission>");

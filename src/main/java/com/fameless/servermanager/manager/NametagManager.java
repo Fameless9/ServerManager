@@ -36,7 +36,7 @@ public class NametagManager {
     public void removeTag(Player player) {
 
         for (Player target : Bukkit.getOnlinePlayers()) {
-            target.getScoreboard().getEntryTeam(player.getName()).removeEntry(player.getName());
+            target.getScoreboard().getEntryTeam(player.getName()).removeEntry(player.getDisplayName());
         }
     }
 }

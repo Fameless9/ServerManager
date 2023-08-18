@@ -1,0 +1,40 @@
+#   Author: Fameless9
+
+#   Messages
+server:
+  message-prefix: "§8[§bServer§8]"
+messages:
+  join-message: "§bPlayer {player} joined the game."
+  quit-message: "§cPlayer {player} left the game."
+  permission-message: "§cLacking permission: {permission}"
+  reporting-not-configured-message: "§cReporting to Discord is not configured on this server. If you are an admin, configure a discord bot and moderation channel in the config.yml, or replace this message in the config.yml."
+  player-not-found-message: "§cPlayer couldn't be found!"
+  player-frozen: "§cYou have been frozen by a Moderator."
+  player-unfrozen: "§aYou have been unfrozen by a Moderator."
+
+
+#   Report System related
+report-system:
+  discord-token: ""
+  report-channel-id: ""
+
+#   Discord related
+discord-messages:
+  casttomc: false
+  casttomc-channel-id: ""
+minecraft-messages:
+  casttodc: false
+  casttodc-channel-id: ""
+
+#   ArmorStand preset function related (line 1 = top line)
+#   You can set the line to "" if you want the line to be blank
+line1: "§4§lExample Armor Stand"
+line2: "§cCustomizable in the config.yml"
+line3: "line3"
+line4: "line4"
+line5: "line5"
+line6: "line6"
+line7: "line7"
+line8: "line8"
+line9: "line9"
+line10: "line10"
